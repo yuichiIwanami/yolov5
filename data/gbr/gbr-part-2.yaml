@@ -1,6 +1,0 @@
-names:
-- cots
-nc: 1
-path: /content/working/yolov5/data/gbr
-train: train-part-2.txt
-val: val-part-2.txt
