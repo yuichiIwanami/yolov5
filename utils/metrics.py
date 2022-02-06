@@ -77,7 +77,8 @@ def ap_per_class(tp, conf, pred_cls, target_cls, plot=False, save_dir='.', names
     names = {i: v for i, v in enumerate(names)}  # to dict
     if plot:
         plot_pr_curve(px, py, ap, Path(save_dir) / 'PR_curve.png', names)
-        plot_mc_curve(px, f2, Path(save_dir) / 'F1_curve.png', names, ylabel='F1')
+        # plot_mc_curve(px, f2, Path(save_dir) / 'F1_curve.png', names, ylabel='F1')
+        plot_mc_curve(px, f2, Path(save_dir) / 'F2_curve.png', names, ylabel='F2')
         plot_mc_curve(px, p, Path(save_dir) / 'P_curve.png', names, ylabel='Precision')
         plot_mc_curve(px, r, Path(save_dir) / 'R_curve.png', names, ylabel='Recall')
 
