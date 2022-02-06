@@ -1,0 +1,6 @@
+names:
+- cots
+nc: 1
+path: /home/gaudi8/kaggle/gb-reef/working/yolov5/data/gbr/gcp
+train: train-full-1.txt
+val: val-full-1.txt
