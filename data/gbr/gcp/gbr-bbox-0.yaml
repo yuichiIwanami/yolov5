@@ -1,6 +1,0 @@
-names:
-- cots
-nc: 1
-path: /home/gaudi8/kaggle/gb-reef/working/yolov5/data/gbr/gcp
-train: train-bbox-0.txt
-val: val-bbox-0.txt
