@@ -120,6 +120,7 @@ def run(data,
         plots=True,
         callbacks=Callbacks(),
         compute_loss=None,
+        select_cls=-1
         ):
     # Initialize/load model and set device
     training = model is not None
@@ -167,7 +168,7 @@ def run(data,
         rect = False if task == 'benchmark' else pt  # square inference for benchmarks
         task = task if task in ('train', 'val', 'test') else 'val'  # path to train/val/test images
         dataloader = create_dataloader(data[task], imgsz, batch_size, stride, single_cls, pad=pad, rect=rect,
-                                       workers=workers, prefix=colorstr(f'{task}: '))[0]
+                                       workers=workers, prefix=colorstr(f'{task}: '), select_cls=select_cls)[0]
 
     seen = 0
     confusion_matrix = ConfusionMatrix(nc=nc)
@@ -341,6 +342,7 @@ def parse_opt():
     parser.add_argument('--exist-ok', action='store_true', help='existing project/name ok, do not increment')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
     parser.add_argument('--dnn', action='store_true', help='use OpenCV DNN for ONNX inference')
+    parser.add_argument('--select-cls', type=int, default=-1, help='select class')
     opt = parser.parse_args()
     opt.data = check_yaml(opt.data)  # check YAML
     opt.save_json |= opt.data.endswith('coco.yaml')
