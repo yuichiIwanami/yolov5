@@ -369,7 +369,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
             if not noval or final_epoch:  # Calculate mAP
                 results, maps, _ = val.run(data_dict,
                                            batch_size=batch_size // WORLD_SIZE * 2,
-                                           imgsz=1920,
+                                           imgsz=1200,
                                            augment=True,
                                            # imgsz=imgsz,
                                            model=ema.ema,
