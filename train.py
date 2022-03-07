@@ -369,7 +369,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
             if not noval or final_epoch:  # Calculate mAP
                 results, maps, _ = val.run(data_dict,
                                            batch_size=batch_size // WORLD_SIZE * 2,
-                                           imgsz=1280,
+                                           imgsz=1920,
                                            # augment=True,
                                            # imgsz=imgsz,
                                            model=ema.ema,
@@ -434,7 +434,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                     results, _, _ = val.run(data_dict,
                                             batch_size=batch_size // WORLD_SIZE * 2,
                                             # imgsz=imgsz,
-                                            imgsz=1280,
+                                            imgsz=1920,
                                             # augment=True,
                                             model=attempt_load(f, device).half(),
                                             iou_thres=0.65 if is_coco else 0.60,  # best pycocotools results at 0.65
