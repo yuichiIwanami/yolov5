@@ -270,7 +270,7 @@ def run(data,
     # Print results
     # pf = '%20s' + '%11i' * 2 + '%11.3g' * 4  # print format
     pf = '%20s' + '%11i' * 2 + '%11.3g' * 6  # print format
-    mIOU = sum(miou_list) / len(miou_list)
+    mIOU = sum(miou_list) / len(miou_list) if len(miou_list) else 0
     LOGGER.info(pf % ('all', seen, nt.sum(), mp, mr, mf1, mIOU, map50, map))
 
     # Print results per class
