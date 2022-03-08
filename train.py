@@ -272,7 +272,7 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
     # nw = min(nw, (epochs - start_epoch) / 2 * nb)  # limit warmup to < 1/2 of training
     last_opt_step = -1
     maps = np.zeros(nc)  # mAP per class
-    results = (0, 0, 0, 0, 0, 0, 0)  # P, R, mAP@.5, mAP@.5-.95, val_loss(box, obj, cls)
+    results = (0, 0, 0, 0, 0, 0, 0, 0, 0)  # P, R, F1, mIOU, mAP@.5, mAP@.5-.95, val_loss(box, obj, cls)
     scheduler.last_epoch = start_epoch - 1  # do not move
     scaler = amp.GradScaler(enabled=cuda)
     stopper = EarlyStopping(patience=opt.patience)
@@ -369,8 +369,10 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
             if not noval or final_epoch:  # Calculate mAP
                 results, maps, _ = val.run(data_dict,
                                            batch_size=batch_size // WORLD_SIZE * 2,
-                                           imgsz=1920,
-                                           # augment=True,
+                                           imgsz=1216,
+                                           augment=True,
+                                           conf_thres=0.45,
+                                           iou_thres=0.5,
                                            # imgsz=imgsz,
                                            model=ema.ema,
                                            single_cls=single_cls,
@@ -435,9 +437,10 @@ def train(hyp,  # path/to/hyp.yaml or hyp dictionary
                                             batch_size=batch_size // WORLD_SIZE * 2,
                                             # imgsz=imgsz,
                                             imgsz=1920,
-                                            # augment=True,
+                                            augment=True,
+                                            conf_thres=0.45,
                                             model=attempt_load(f, device).half(),
-                                            iou_thres=0.65 if is_coco else 0.60,  # best pycocotools results at 0.65
+                                            iou_thres=0.45 if is_coco else 0.60,  # best pycocotools results at 0.65
                                             single_cls=single_cls,
                                             dataloader=val_loader,
                                             save_dir=save_dir,
